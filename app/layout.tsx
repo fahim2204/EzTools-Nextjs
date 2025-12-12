@@ -45,6 +45,14 @@ export const metadata: Metadata = {
     title: "Free Online Calculators - Age, BMI, Gold Price, Land & More",
     description: "Calculate anything with our free online calculators. Age, BMI, gold prices, land area, loans, and more. Fast, accurate, and easy to use.",
     siteName: "EZCalc",
+    images: [
+      {
+        url: "/images/ezcalc.webp",
+        width: 1024,
+        height: 1024,
+        alt: "EZCalc - Free Online Calculators",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
