@@ -105,3 +105,30 @@ body {
 .count-up {
   animation: countUp 0.5s ease-out;
 }
+
+/* Calendar styling for DatePicker */
+[data-slot="calendar"] [data-slot="cell"] {
+  color: rgb(209 213 219);
+}
+
+[data-slot="calendar"] [data-slot="cell"][data-selected="true"] {
+  background-color: rgb(147 51 234);
+  color: white;
+}
+
+[data-slot="calendar"] [data-slot="cell"]:hover {
+  background-color: rgba(147, 51, 234, 0.5);
+  color: white;
+}
+
+[data-slot="calendar"] [data-slot="header"] {
+  color: rgb(209 213 219);
+}
+
+[data-slot="calendar"] button {
+  color: rgb(196 181 253);
+}
+
+[data-slot="calendar"] button:hover {
+  color: rgb(196 181 253);
+}

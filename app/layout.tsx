@@ -8,20 +8,24 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL('https://ezcalc.com'),
   title: {
-    default: "Age Calculator – Exact Age, Life Stats & Fun Facts | EZCalc",
+    default: "Free Online Calculators – Age, BMI, Gold Price, Land & More | EZCalc",
     template: "%s | EZCalc"
   },
-  description: "Calculate your exact age in years, months, and days. Discover fascinating life insights including water consumed, oxygen inhaled, and famous people who share your birthday. Fast, accurate, and SEO-friendly age calculator.",
+  description: "Free online calculators for age, BMI, gold prices, land area, loans, mortgages, percentages, tips, and more. Fast, accurate, and easy-to-use calculators for all your needs.",
   keywords: [
+    "free online calculators",
     "age calculator",
-    "calculate age by date of birth",
-    "exact age today",
-    "age in days calculator",
-    "birthday calculator",
-    "how old am i",
-    "age counter",
-    "life stats calculator",
-    "famous birthdays"
+    "BMI calculator",
+    "gold price calculator",
+    "land calculator",
+    "loan calculator",
+    "mortgage calculator",
+    "percentage calculator",
+    "tip calculator",
+    "unit converter",
+    "financial calculator",
+    "health calculator",
+    "measurement calculator"
   ],
   authors: [{ name: "EZCalc" }],
   creator: "EZCalc",
@@ -35,14 +39,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://ezcalc.com",
-    title: "Age Calculator – Exact Age, Life Stats & Fun Facts",
-    description: "Calculate your exact age and discover fascinating life insights. See famous people born on your birthday!",
+    title: "Free Online Calculators – Age, BMI, Gold Price, Land & More",
+    description: "Calculate anything with our free online calculators. Age, BMI, gold prices, land area, loans, and more. Fast, accurate, and easy to use.",
     siteName: "EZCalc",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Age Calculator – Exact Age, Life Stats & Fun Facts",
-    description: "Calculate your exact age and discover fascinating life insights.",
+    title: "Free Online Calculators – Age, BMI, Gold Price, Land & More",
+    description: "Calculate anything with our free online calculators. Fast, accurate, and easy to use.",
   },
   robots: {
     index: true,
@@ -71,8 +75,8 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebApplication",
-              "name": "Age Calculator",
-              "description": "Calculate your exact age in years, months, and days with life insights and famous birthdays",
+              "name": "EZCalc - Free Online Calculators",
+              "description": "Free online calculators for age, BMI, gold prices, land area, loans, mortgages, percentages, tips, and more",
               "url": "https://ezcalc.com",
               "applicationCategory": "UtilityApplication",
               "offers": {
@@ -81,10 +85,14 @@ export default function RootLayout({
                 "priceCurrency": "USD"
               },
               "featureList": [
-                "Exact age calculation",
-                "Life statistics insights",
-                "Famous birthdays matching",
-                "Next birthday countdown"
+                "Age calculator with life insights",
+                "BMI calculator",
+                "Gold price calculator",
+                "Land area calculator",
+                "Loan and mortgage calculators",
+                "Percentage calculator",
+                "Tip calculator",
+                "Free and easy to use"
               ]
             })
           }}
