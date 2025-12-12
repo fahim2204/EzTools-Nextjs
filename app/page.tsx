@@ -16,7 +16,8 @@ interface CalculatorCard {
 const calculators: CalculatorCard[] = [
   {
     title: "Age Calculator",
-    description: "Calculate your exact age in years, months, and days. Discover life insights and famous birthdays.",
+    description:
+      "Calculate your exact age in years, months, and days. Discover life insights and famous birthdays.",
     icon: "🎂",
     href: "/age-calculator",
     color: "purple",
@@ -24,7 +25,8 @@ const calculators: CalculatorCard[] = [
   },
   {
     title: "BMI Calculator",
-    description: "Calculate your Body Mass Index and understand your health status with detailed insights.",
+    description:
+      "Calculate your Body Mass Index and understand your health status with detailed insights.",
     icon: "💪",
     href: "/bmi-calculator",
     color: "blue",
@@ -32,7 +34,8 @@ const calculators: CalculatorCard[] = [
   },
   {
     title: "Gold Price Calculator",
-    description: "Calculate gold prices, convert between different units, and track precious metal values.",
+    description:
+      "Calculate gold prices, convert between different units, and track precious metal values.",
     icon: "🥇",
     href: "/gold-price-calculator",
     color: "yellow",
@@ -40,7 +43,8 @@ const calculators: CalculatorCard[] = [
   },
   {
     title: "Land Calculator",
-    description: "Calculate land area, convert between different units, and measure property dimensions.",
+    description:
+      "Calculate land area, convert between different units, and measure property dimensions.",
     icon: "🏞️",
     href: "/land-calculator",
     color: "green",
@@ -48,7 +52,8 @@ const calculators: CalculatorCard[] = [
   },
   {
     title: "Loan Calculator",
-    description: "Calculate loan payments, interest rates, and amortization schedules for any loan type.",
+    description:
+      "Calculate loan payments, interest rates, and amortization schedules for any loan type.",
     icon: "💰",
     href: "/loan-calculator",
     color: "indigo",
@@ -56,7 +61,8 @@ const calculators: CalculatorCard[] = [
   },
   {
     title: "Mortgage Calculator",
-    description: "Calculate monthly mortgage payments, total interest, and plan your home purchase.",
+    description:
+      "Calculate monthly mortgage payments, total interest, and plan your home purchase.",
     icon: "🏠",
     href: "/mortgage-calculator",
     color: "pink",
@@ -64,7 +70,8 @@ const calculators: CalculatorCard[] = [
   },
   {
     title: "Percentage Calculator",
-    description: "Calculate percentages, percentage increase/decrease, and solve percentage problems.",
+    description:
+      "Calculate percentages, percentage increase/decrease, and solve percentage problems.",
     icon: "📊",
     href: "/percentage-calculator",
     color: "teal",
@@ -72,7 +79,8 @@ const calculators: CalculatorCard[] = [
   },
   {
     title: "Tip Calculator",
-    description: "Calculate tips, split bills, and determine fair gratuity amounts for any service.",
+    description:
+      "Calculate tips, split bills, and determine fair gratuity amounts for any service.",
     icon: "🍽️",
     href: "/tip-calculator",
     color: "orange",
@@ -98,14 +106,14 @@ export default function Home() {
           className="text-center mb-16"
         >
           <h1 className="text-6xl md:text-7xl font-bold mb-4 gradient-text">
-            EZCalc
+            EZCalc - Calulate Everything
           </h1>
           <p className="text-xl md:text-2xl text-gray-400 mb-2">
             Free Online Calculators for Every Need
           </p>
           <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-            Calculate, convert, and compute with our comprehensive collection of free online calculators.
-            Fast, accurate, and easy to use.
+            Calculate, convert, and compute with our comprehensive collection of
+            free online calculators. Fast, accurate, and easy to use.
           </p>
         </motion.div>
 
@@ -131,7 +139,9 @@ export default function Home() {
                       <p className="text-sm text-gray-400 line-clamp-3">
                         {calculator.description}
                       </p>
-                      <div className={`mt-4 inline-block px-4 py-2 rounded-lg bg-gradient-to-r ${calculator.gradient} text-white text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
+                      <div
+                        className={`mt-4 inline-block px-4 py-2 rounded-lg bg-gradient-to-r ${calculator.gradient} text-white text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                      >
                         Calculate →
                       </div>
                     </div>
@@ -154,28 +164,58 @@ export default function Home() {
           </h2>
           <div className="text-gray-300 space-y-4">
             <p>
-              Welcome to EZCalc – your one-stop destination for free, accurate, and easy-to-use online calculators.
-              Whether you need to calculate your age, determine your BMI, convert units, or solve complex financial
-              equations, we have the perfect calculator for you.
+              Welcome to EZCalc – your one-stop destination for free, accurate,
+              and easy-to-use online calculators. Whether you need to calculate
+              your age, determine your BMI, convert units, or solve complex
+              financial equations, we have the perfect calculator for you.
             </p>
-            <h3 className="text-xl font-semibold text-purple-300 mt-6">Our Calculator Collection:</h3>
+            <h3 className="text-xl font-semibold text-purple-300 mt-6">
+              Our Calculator Collection:
+            </h3>
             <ul className="list-disc list-inside space-y-2 text-gray-400">
-              <li><strong>Age Calculator</strong> – Calculate your exact age with life insights and famous birthdays</li>
-              <li><strong>BMI Calculator</strong> – Determine your Body Mass Index and health status</li>
-              <li><strong>Gold Price Calculator</strong> – Track and convert gold prices in real-time</li>
-              <li><strong>Land Calculator</strong> – Calculate land area and convert between measurement units</li>
-              <li><strong>Loan Calculator</strong> – Calculate loan payments, interest, and amortization</li>
-              <li><strong>Mortgage Calculator</strong> – Plan your home purchase with detailed mortgage calculations</li>
-              <li><strong>Percentage Calculator</strong> – Solve percentage problems and conversions</li>
-              <li><strong>Tip Calculator</strong> – Calculate tips and split bills easily</li>
+              <li>
+                <strong>Age Calculator</strong> – Calculate your exact age with
+                life insights and famous birthdays
+              </li>
+              <li>
+                <strong>BMI Calculator</strong> – Determine your Body Mass Index
+                and health status
+              </li>
+              <li>
+                <strong>Gold Price Calculator</strong> – Track and convert gold
+                prices in real-time
+              </li>
+              <li>
+                <strong>Land Calculator</strong> – Calculate land area and
+                convert between measurement units
+              </li>
+              <li>
+                <strong>Loan Calculator</strong> – Calculate loan payments,
+                interest, and amortization
+              </li>
+              <li>
+                <strong>Mortgage Calculator</strong> – Plan your home purchase
+                with detailed mortgage calculations
+              </li>
+              <li>
+                <strong>Percentage Calculator</strong> – Solve percentage
+                problems and conversions
+              </li>
+              <li>
+                <strong>Tip Calculator</strong> – Calculate tips and split bills
+                easily
+              </li>
             </ul>
             <p className="mt-6">
-              All our calculators are completely free to use, require no registration, and provide instant, accurate results.
-              We're constantly adding new calculators to help you with your everyday calculations and complex computations.
+              All our calculators are completely free to use, require no
+              registration, and provide instant, accurate results. We're
+              constantly adding new calculators to help you with your everyday
+              calculations and complex computations.
             </p>
             <p className="mt-4">
-              EZCalc is designed with user experience in mind – fast loading times, beautiful interfaces, and mobile-friendly
-              designs ensure you can calculate anything, anywhere, anytime.
+              EZCalc is designed with user experience in mind – fast loading
+              times, beautiful interfaces, and mobile-friendly designs ensure
+              you can calculate anything, anywhere, anytime.
             </p>
           </div>
         </motion.div>
@@ -184,7 +224,8 @@ export default function Home() {
         <footer className="mt-20 text-center text-gray-500 text-sm pb-8">
           <p>© 2025 EZCalc. All rights reserved.</p>
           <p className="mt-2">
-            Free online calculators for age, BMI, gold prices, land area, loans, and more
+            Free online calculators for age, BMI, gold prices, land area, loans,
+            and more
           </p>
         </footer>
       </div>

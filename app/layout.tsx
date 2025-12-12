@@ -6,7 +6,7 @@ import { HeroUIProvider } from "@heroui/react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ezcalc.com'),
+  metadataBase: new URL('https://ezcalc.xyz'),
   title: {
     default: "Free Online Calculators – Age, BMI, Gold Price, Land & More | EZCalc",
     template: "%s | EZCalc"
@@ -27,6 +27,9 @@ export const metadata: Metadata = {
     "health calculator",
     "measurement calculator"
   ],
+  alternates: {
+    canonical: "https://ezcalc.xyz",
+  },
   authors: [{ name: "EZCalc" }],
   creator: "EZCalc",
   publisher: "EZCalc",
@@ -38,14 +41,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://ezcalc.com",
-    title: "Free Online Calculators – Age, BMI, Gold Price, Land & More",
+    url: "https://ezcalc.xyz",
+    title: "Free Online Calculators - Age, BMI, Gold Price, Land & More",
     description: "Calculate anything with our free online calculators. Age, BMI, gold prices, land area, loans, and more. Fast, accurate, and easy to use.",
     siteName: "EZCalc",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Online Calculators – Age, BMI, Gold Price, Land & More",
+    title: "Free Online Calculators - Age, BMI, Gold Price, Land & More",
     description: "Calculate anything with our free online calculators. Fast, accurate, and easy to use.",
   },
   robots: {
@@ -77,7 +80,7 @@ export default function RootLayout({
               "@type": "WebApplication",
               "name": "EZCalc - Free Online Calculators",
               "description": "Free online calculators for age, BMI, gold prices, land area, loans, mortgages, percentages, tips, and more",
-              "url": "https://ezcalc.com",
+              "url": "https://ezcalc.xyz",
               "applicationCategory": "UtilityApplication",
               "offers": {
                 "@type": "Offer",
