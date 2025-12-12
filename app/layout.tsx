@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     default: "Free Online Calculators – Age, BMI, Gold Price, Land & More | EZCalc",
     template: "%s | EZCalc"
   },
+  applicationName: "EZCalc",
   description: "Free online calculators for age, BMI, gold prices, land area, loans, mortgages, percentages, tips, and more. Fast, accurate, and easy-to-use calculators for all your needs.",
   keywords: [
     "free online calculators",
@@ -98,29 +99,38 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              "name": "EZCalc - Free Online Calculators",
-              "description": "Free online calculators for age, BMI, gold prices, land area, loans, mortgages, percentages, tips, and more",
-              "url": "https://ezcalc.xyz",
-              "applicationCategory": "UtilityApplication",
-              "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "EZCalc",
+                "url": "https://ezcalc.xyz",
+                "description": "Free online calculators for age, BMI, gold prices, land area, loans, mortgages, percentages, tips, and more"
               },
-              "featureList": [
-                "Age calculator with life insights",
-                "BMI calculator",
-                "Gold price calculator",
-                "Land area calculator",
-                "Loan and mortgage calculators",
-                "Percentage calculator",
-                "Tip calculator",
-                "Free and easy to use"
-              ]
-            })
+              {
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "name": "EZCalc - Free Online Calculators",
+                "description": "Free online calculators for age, BMI, gold prices, land area, loans, mortgages, percentages, tips, and more",
+                "url": "https://ezcalc.xyz",
+                "applicationCategory": "UtilityApplication",
+                "offers": {
+                  "@type": "Offer",
+                  "price": "0",
+                  "priceCurrency": "USD"
+                },
+                "featureList": [
+                  "Age calculator with life insights",
+                  "BMI calculator",
+                  "Gold price calculator",
+                  "Land area calculator",
+                  "Loan and mortgage calculators",
+                  "Percentage calculator",
+                  "Tip calculator",
+                  "Free and easy to use"
+                ]
+              }
+            ])
           }}
         />
       </head>
