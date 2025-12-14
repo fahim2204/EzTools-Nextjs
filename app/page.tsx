@@ -1,6 +1,7 @@
 "use client";
 
-import { Card, CardBody } from "@heroui/react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -96,7 +97,6 @@ export default function Home() {
         <div className="absolute top-1/4 -left-48 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
         <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
       </div>
-
       <div className="relative z-10 container mx-auto px-4 py-12">
         {/* Header */}
         <motion.div
@@ -128,7 +128,7 @@ export default function Home() {
             >
               <Link href={calculator.href}>
                 <Card className="glass-strong border-2 border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 h-full cursor-pointer group hover:scale-105">
-                  <CardBody className="p-6">
+                  <CardContent className="p-6">
                     <div className="text-center">
                       <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
                         {calculator.icon}
@@ -145,7 +145,7 @@ export default function Home() {
                         Calculate →
                       </div>
                     </div>
-                  </CardBody>
+                  </CardContent>
                 </Card>
               </Link>
             </motion.div>

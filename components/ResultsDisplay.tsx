@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card, CardBody } from "@heroui/react";
+import { Card, CardContent } from "@/components/ui/card";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { AgeResult, NextBirthday } from "@/lib/ageCalculations";
 import { formatNumber, formatDuration } from "@/lib/formatters";
@@ -68,7 +68,7 @@ export default function ResultsDisplay({ ageResult, nextBirthday }: ResultsDispl
           transition={{ delay: 0.3 }}
         >
           <Card className="glass border border-purple-500/30 hover:border-purple-500/60 transition-all duration-300 hover:scale-105">
-            <CardBody className="p-6">
+            <CardContent className="p-6">
               <div className="text-center">
                 <div className="text-5xl mb-3">🎂</div>
                 <h3 className="text-xl font-semibold mb-2 text-purple-300">Exact Age</h3>
@@ -79,7 +79,7 @@ export default function ResultsDisplay({ ageResult, nextBirthday }: ResultsDispl
                   <AnimatedCounter value={months} /> months, <AnimatedCounter value={days} /> days
                 </div>
               </div>
-            </CardBody>
+            </CardContent>
           </Card>
         </motion.div>
 
@@ -90,7 +90,7 @@ export default function ResultsDisplay({ ageResult, nextBirthday }: ResultsDispl
           transition={{ delay: 0.4 }}
         >
           <Card className="glass border border-pink-500/30 hover:border-pink-500/60 transition-all duration-300 hover:scale-105">
-            <CardBody className="p-6">
+            <CardContent className="p-6">
               <div className="text-center">
                 <div className="text-5xl mb-3">📅</div>
                 <h3 className="text-xl font-semibold mb-2 text-pink-300">Total Days</h3>
@@ -101,7 +101,7 @@ export default function ResultsDisplay({ ageResult, nextBirthday }: ResultsDispl
                   days you've experienced
                 </div>
               </div>
-            </CardBody>
+            </CardContent>
           </Card>
         </motion.div>
 
@@ -112,7 +112,7 @@ export default function ResultsDisplay({ ageResult, nextBirthday }: ResultsDispl
           transition={{ delay: 0.5 }}
         >
           <Card className="glass border border-blue-500/30 hover:border-blue-500/60 transition-all duration-300 hover:scale-105">
-            <CardBody className="p-6">
+            <CardContent className="p-6">
               <div className="text-center">
                 <div className="text-5xl mb-3">⏰</div>
                 <h3 className="text-xl font-semibold mb-2 text-blue-300">Total Hours</h3>
@@ -123,7 +123,7 @@ export default function ResultsDisplay({ ageResult, nextBirthday }: ResultsDispl
                   hours of life
                 </div>
               </div>
-            </CardBody>
+            </CardContent>
           </Card>
         </motion.div>
 
@@ -134,7 +134,7 @@ export default function ResultsDisplay({ ageResult, nextBirthday }: ResultsDispl
           transition={{ delay: 0.6 }}
         >
           <Card className="glass border border-green-500/30 hover:border-green-500/60 transition-all duration-300 hover:scale-105">
-            <CardBody className="p-6">
+            <CardContent className="p-6">
               <div className="text-center">
                 <div className="text-5xl mb-3">⏱️</div>
                 <h3 className="text-xl font-semibold mb-2 text-green-300">Total Minutes</h3>
@@ -145,7 +145,7 @@ export default function ResultsDisplay({ ageResult, nextBirthday }: ResultsDispl
                   minutes and counting
                 </div>
               </div>
-            </CardBody>
+            </CardContent>
           </Card>
         </motion.div>
 
@@ -157,7 +157,7 @@ export default function ResultsDisplay({ ageResult, nextBirthday }: ResultsDispl
           className="md:col-span-2"
         >
           <Card className="glass border border-yellow-500/30 hover:border-yellow-500/60 transition-all duration-300 hover:scale-105">
-            <CardBody className="p-6">
+            <CardContent className="p-6">
               <div className="text-center">
                 <div className="text-5xl mb-3">🎉</div>
                 <h3 className="text-xl font-semibold mb-2 text-yellow-300">Next Birthday Countdown</h3>
@@ -171,7 +171,7 @@ export default function ResultsDisplay({ ageResult, nextBirthday }: ResultsDispl
                   until you turn {years + 1}!
                 </div>
               </div>
-            </CardBody>
+            </CardContent>
           </Card>
         </motion.div>
       </div>

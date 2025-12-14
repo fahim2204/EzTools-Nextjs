@@ -1,6 +1,11 @@
 "use client";
 
-import { Accordion, AccordionItem } from "@heroui/react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { motion } from "framer-motion";
 
 export default function FAQ() {
@@ -39,23 +44,19 @@ export default function FAQ() {
         </p>
       </div>
 
-      <Accordion
-        variant="splitted"
-        className="glass-strong"
-        itemClasses={{
-          base: "glass border border-purple-500/20 mb-4",
-          title: "font-semibold text-lg text-white",
-          trigger: "py-6 px-6 hover:bg-purple-500/10",
-          content: "text-gray-300 pb-6 px-6",
-        }}
-      >
+      <Accordion type="single" collapsible className="w-full space-y-4">
         {faqs.map((faq, index) => (
           <AccordionItem
             key={index}
-            aria-label={faq.question}
-            title={faq.question}
+            value={`item-${index}`}
+            className="glass border border-purple-500/20 rounded-lg overflow-hidden"
           >
-            {faq.answer}
+            <AccordionTrigger className="py-6 px-6 hover:bg-purple-500/10 text-lg font-semibold text-white hover:no-underline">
+              {faq.question}
+            </AccordionTrigger>
+            <AccordionContent className="text-gray-300 pb-6 px-6">
+              {faq.answer}
+            </AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>
