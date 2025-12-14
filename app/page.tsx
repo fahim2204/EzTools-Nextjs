@@ -1,7 +1,6 @@
 "use client";
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardBody as CardContent } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -127,7 +126,7 @@ export default function Home() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <Link href={calculator.href}>
-                <Card className="glass-strong border-2 border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 h-full cursor-pointer group hover:scale-105">
+                <Card className="glass-strong border-2 border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 h-full cursor-pointer group hover:scale-105 bg-transparent">
                   <CardContent className="p-6">
                     <div className="text-center">
                       <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">

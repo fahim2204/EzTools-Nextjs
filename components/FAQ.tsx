@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Accordion, AccordionItem } from "@nextui-org/react";
 import { motion } from "framer-motion";
 
 export default function FAQ() {
@@ -44,19 +39,20 @@ export default function FAQ() {
         </p>
       </div>
 
-      <Accordion type="single" collapsible className="w-full space-y-4">
+      <Accordion selectionMode="single" className="w-full space-y-4">
         {faqs.map((faq, index) => (
           <AccordionItem
             key={index}
-            value={`item-${index}`}
+            aria-label={faq.question}
+            title={faq.question}
             className="glass border border-purple-500/20 rounded-lg overflow-hidden"
+            classNames={{
+              title: "text-lg font-semibold text-white",
+              trigger: "py-6 px-6 hover:bg-purple-500/10",
+              content: "text-gray-300 pb-6 px-6",
+            }}
           >
-            <AccordionTrigger className="py-6 px-6 hover:bg-purple-500/10 text-lg font-semibold text-white hover:no-underline">
-              {faq.question}
-            </AccordionTrigger>
-            <AccordionContent className="text-gray-300 pb-6 px-6">
-              {faq.answer}
-            </AccordionContent>
+            {faq.answer}
           </AccordionItem>
         ))}
       </Accordion>

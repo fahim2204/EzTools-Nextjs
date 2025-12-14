@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardBody as CardContent } from "@nextui-org/react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { AgeResult, NextBirthday } from "@/lib/ageCalculations";
 import { formatNumber, formatDuration } from "@/lib/formatters";
@@ -67,7 +67,7 @@ export default function ResultsDisplay({ ageResult, nextBirthday }: ResultsDispl
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3 }}
         >
-          <Card className="glass border border-purple-500/30 hover:border-purple-500/60 transition-all duration-300 hover:scale-105">
+          <Card className="glass border border-purple-500/30 hover:border-purple-500/60 transition-all duration-300 hover:scale-105 bg-transparent">
             <CardContent className="p-6">
               <div className="text-center">
                 <div className="text-5xl mb-3">🎂</div>
@@ -89,7 +89,7 @@ export default function ResultsDisplay({ ageResult, nextBirthday }: ResultsDispl
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4 }}
         >
-          <Card className="glass border border-pink-500/30 hover:border-pink-500/60 transition-all duration-300 hover:scale-105">
+          <Card className="glass border border-pink-500/30 hover:border-pink-500/60 transition-all duration-300 hover:scale-105 bg-transparent">
             <CardContent className="p-6">
               <div className="text-center">
                 <div className="text-5xl mb-3">📅</div>
@@ -111,7 +111,7 @@ export default function ResultsDisplay({ ageResult, nextBirthday }: ResultsDispl
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.5 }}
         >
-          <Card className="glass border border-blue-500/30 hover:border-blue-500/60 transition-all duration-300 hover:scale-105">
+          <Card className="glass border border-blue-500/30 hover:border-blue-500/60 transition-all duration-300 hover:scale-105 bg-transparent">
             <CardContent className="p-6">
               <div className="text-center">
                 <div className="text-5xl mb-3">⏰</div>
@@ -133,7 +133,7 @@ export default function ResultsDisplay({ ageResult, nextBirthday }: ResultsDispl
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.6 }}
         >
-          <Card className="glass border border-green-500/30 hover:border-green-500/60 transition-all duration-300 hover:scale-105">
+          <Card className="glass border border-green-500/30 hover:border-green-500/60 transition-all duration-300 hover:scale-105 bg-transparent">
             <CardContent className="p-6">
               <div className="text-center">
                 <div className="text-5xl mb-3">⏱️</div>
@@ -156,7 +156,7 @@ export default function ResultsDisplay({ ageResult, nextBirthday }: ResultsDispl
           transition={{ delay: 0.7 }}
           className="md:col-span-2"
         >
-          <Card className="glass border border-yellow-500/30 hover:border-yellow-500/60 transition-all duration-300 hover:scale-105">
+          <Card className="glass border border-yellow-500/30 hover:border-yellow-500/60 transition-all duration-300 hover:scale-105 bg-transparent">
             <CardContent className="p-6">
               <div className="text-center">
                 <div className="text-5xl mb-3">🎉</div>

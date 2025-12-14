@@ -1,7 +1,6 @@
 "use client";
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardBody as CardContent, Chip } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import { LifeInsights as LifeInsightsType } from "@/lib/ageCalculations";
 import { formatNumber } from "@/lib/formatters";
@@ -36,7 +35,7 @@ export default function LifeInsights({ insights }: LifeInsightsProps) {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.5 }}
         >
-          <Card className="glass border border-cyan-500/30 hover:border-cyan-500/60 transition-all duration-300">
+          <Card className="glass border border-cyan-500/30 hover:border-cyan-500/60 transition-all duration-300 bg-transparent">
             <CardContent className="p-6">
               <div className="flex items-center gap-4">
                 <div className="text-6xl">💧</div>
@@ -60,7 +59,7 @@ export default function LifeInsights({ insights }: LifeInsightsProps) {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.6 }}
         >
-          <Card className="glass border border-green-500/30 hover:border-green-500/60 transition-all duration-300">
+          <Card className="glass border border-green-500/30 hover:border-green-500/60 transition-all duration-300 bg-transparent">
             <CardContent className="p-6">
               <div className="flex items-center gap-4">
                 <div className="text-6xl">🌬️</div>
@@ -84,7 +83,7 @@ export default function LifeInsights({ insights }: LifeInsightsProps) {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.7 }}
         >
-          <Card className="glass border border-orange-500/30 hover:border-orange-500/60 transition-all duration-300">
+          <Card className="glass border border-orange-500/30 hover:border-orange-500/60 transition-all duration-300 bg-transparent">
             <CardContent className="p-6">
               <div className="flex items-center gap-4">
                 <div className="text-6xl">💨</div>
@@ -108,7 +107,7 @@ export default function LifeInsights({ insights }: LifeInsightsProps) {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.8 }}
         >
-          <Card className="glass border border-purple-500/30 hover:border-purple-500/60 transition-all duration-300">
+          <Card className="glass border border-purple-500/30 hover:border-purple-500/60 transition-all duration-300 bg-transparent">
             <CardContent className="p-6">
               <div className="flex items-center gap-4">
                 <div className="text-6xl">🌍</div>
@@ -133,14 +132,14 @@ export default function LifeInsights({ insights }: LifeInsightsProps) {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.9 }}
       >
-        <Card className="glass-strong border border-gray-700/50">
+        <Card className="glass-strong border border-gray-700/50 bg-transparent">
           <CardContent className="p-4">
             <div className="flex items-start gap-3">
               <div className="text-2xl">ℹ️</div>
               <div className="flex-1">
-                <Badge variant="outline" className="mb-2">
+                <Chip variant="bordered" className="mb-2 text-gray-400 border-gray-500">
                   Disclaimer
-                </Badge>
+                </Chip>
                 <p className="text-sm text-gray-400">
                   These life insights are based on average human consumption estimates and are provided for 
                   informational and entertainment purposes only. Actual values vary significantly based on 

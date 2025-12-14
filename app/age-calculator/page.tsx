@@ -1,26 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { format, parse, isValid } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Card, CardHeader, CardBody as CardContent, Button, DatePicker } from "@nextui-org/react";
+import { parseDate, getLocalTimeZone, today, CalendarDate } from "@internationalized/date";
 import { motion, AnimatePresence } from "framer-motion";
 import { calculateAge, calculateNextBirthday, calculateLifeInsights, AgeResult, NextBirthday, LifeInsights as LifeInsightsType } from "@/lib/ageCalculations";
 import { getFamousBirthdays, FamousPerson } from "@/data/famousBirthdays";
@@ -30,14 +12,8 @@ import FamousBirthdays from "@/components/FamousBirthdays";
 import FAQ from "@/components/FAQ";
 import AdPlaceholder from "@/components/AdPlaceholder";
 
-const months = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
-
 export default function AgeCalculator() {
-  const [inputValue, setInputValue] = useState("");
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState<CalendarDate | null>(null);
   const [isCalculated, setIsCalculated] = useState(false);
   const [ageResult, setAgeResult] = useState<AgeResult | null>(null);
   const [nextBirthday, setNextBirthday] = useState<NextBirthday | null>(null);
@@ -45,55 +21,27 @@ export default function AgeCalculator() {
   const [famousPeople, setFamousPeople] = useState<FamousPerson[]>([]);
   const [error, setError] = useState("");
 
-  const handleDateSelect = (selectedDate: Date | undefined) => {
-    setDate(selectedDate);
-    if (selectedDate) {
-      setInputValue(format(selectedDate, "dd/MM/yyyy"));
-    }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    setInputValue(val);
-    
-    // Attempt to parse date
-    if (val.length === 10) {
-      const parsedDate = parse(val, "dd/MM/yyyy", new Date());
-      if (isValid(parsedDate)) {
-        setDate(parsedDate);
-      } else {
-        setDate(undefined);
-      }
-    } else {
-      setDate(undefined);
-    }
-  };
-
   const handleCalculate = () => {
     setError("");
     
-    if (!inputValue) {
+    if (!date) {
       setError("Please enter a date");
       return;
     }
 
-    const parsedDate = parse(inputValue, "dd/MM/yyyy", new Date());
-    if (!isValid(parsedDate)) {
-      setError("Invalid date format. Use DD/MM/YYYY");
-      return;
-    }
+    const nativeDate = date.toDate(getLocalTimeZone());
+    const todayDate = new Date();
 
-    const today = new Date();
-    if (parsedDate > today) {
+    if (nativeDate > todayDate) {
       setError("Date must be in the past");
       return;
     }
 
     // Calculate
-    const result = calculateAge(parsedDate);
-    const nextBday = calculateNextBirthday(parsedDate);
+    const result = calculateAge(nativeDate);
+    const nextBday = calculateNextBirthday(nativeDate);
     const insights = calculateLifeInsights(result.totalDays);
-    const famous = getFamousBirthdays(parsedDate.getMonth(), parsedDate.getDate());
+    const famous = getFamousBirthdays(nativeDate.getMonth(), nativeDate.getDate());
 
     setAgeResult(result);
     setNextBirthday(nextBday);
@@ -128,54 +76,28 @@ export default function AgeCalculator() {
             className="max-w-xl mx-auto"
           >
             <Card className="glass-strong border-2 border-purple-500/20 shadow-2xl shadow-purple-900/20">
-              <CardHeader>
-                <CardTitle className="text-2xl text-center">Enter Date of Birth</CardTitle>
-                <CardDescription className="text-center">
+              <CardHeader className="flex flex-col gap-2 pb-0">
+                <h3 className="text-2xl font-bold text-center text-white">Enter Date of Birth</h3>
+                <p className="text-sm text-gray-400 text-center">
                   We'll calculate everything else for you
-                </CardDescription>
+                </p>
               </CardHeader>
-              <CardContent className="space-y-6">
+              <CardContent className="space-y-6 p-6">
                 <div className="flex flex-col space-y-2">
-                  <Label htmlFor="dob">Date of Birth</Label>
-                  <div className="flex gap-2 relative">
-                    <Input
-                      id="dob"
-                      type="text"
-                      placeholder="DD/MM/YYYY"
-                      value={inputValue}
-                      onChange={handleInputChange}
-                      className="bg-black/20 border-purple-500/30 focus-visible:ring-purple-500 pl-10"
-                    />
-                    <div className="absolute left-3 top-2.5 text-muted-foreground pointer-events-none">
-                       <CalendarIcon className="h-4 w-4" />
-                    </div>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          className="shrink-0 border-purple-500/30 bg-black/20 hover:bg-black/30 text-muted-foreground hover:text-white"
-                        >
-                          <CalendarIcon className="h-4 w-4" />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="end">
-                        <Calendar
-                          mode="single"
-                          selected={date}
-                          onSelect={handleDateSelect}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
-                          initialFocus
-                          captionLayout="dropdown"
-                          fromYear={1900}
-                          toYear={new Date().getFullYear()}
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                  <p className="text-xs text-muted-foreground ml-1">Format: DD/MM/YYYY</p>
+                  <DatePicker 
+                    label="Date of Birth"
+                    variant="bordered"
+                    showMonthAndYearPickers
+                    value={date} 
+                    onChange={setDate}
+                    maxValue={today(getLocalTimeZone())}
+                    description="Format: MM/DD/YYYY"
+                    className="max-w-full"
+                    classNames={{
+                      inputWrapper: "border-purple-500/30 bg-black/20 hover:bg-black/30",
+                      label: "text-gray-300",
+                    }}
+                  />
                 </div>
 
                 {error && (
@@ -185,8 +107,8 @@ export default function AgeCalculator() {
                 )}
 
                 <Button 
-                  onClick={handleCalculate}
-                  className="w-full h-12 text-lg font-semibold bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg shadow-purple-500/25"
+                  onPress={handleCalculate}
+                  className="w-full h-12 text-lg font-semibold bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg shadow-purple-500/25 text-white border-0"
                 >
                   Calculate Age
                 </Button>
