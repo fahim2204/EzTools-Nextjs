@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
@@ -82,19 +83,23 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
         {/* Google tag (gtag.js) */}
-        <script
-          async
+        <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-Y11DNC9PE3"
+          strategy="afterInteractive"
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-Y11DNC9PE3');
-            `,
-          }}
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-Y11DNC9PE3');
+          `}
+        </Script>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7554208332966422"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
         />
         <script
           type="application/ld+json"
