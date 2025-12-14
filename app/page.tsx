@@ -221,6 +221,20 @@ export default function Home() {
 
         {/* Footer */}
         <footer className="mt-20 text-center text-gray-500 text-sm pb-8">
+          <div className="flex justify-center flex-wrap gap-6 mb-8 text-base">
+            <Link href="/about" className="hover:text-purple-400 transition-colors">
+              About
+            </Link>
+            <Link href="/contact" className="hover:text-purple-400 transition-colors">
+              Contact
+            </Link>
+            <Link href="/privacy-policy" className="hover:text-purple-400 transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="hover:text-purple-400 transition-colors">
+              Terms of Service
+            </Link>
+          </div>
           <p>© 2025 EZCalc. All rights reserved.</p>
           <p className="mt-2">
             Free online calculators for age, BMI, gold prices, land area, loans,
