@@ -141,7 +141,26 @@ export default function AgeCalculator() {
         )}
       </AnimatePresence>
 
-      <FAQ />
+      <FAQ 
+        items={[
+          {
+            question: "How accurate is this age calculator?",
+            answer: "Our age calculator is extremely accurate. It calculates your exact age down to the day by considering the full date (year, month, and day) of your birth. The calculations account for leap years and varying month lengths to provide precise results."
+          },
+          {
+            question: "How are the life insights calculated?",
+            answer: "Life insights are based on average human consumption estimates. We use approximately 2.5 liters of water per day, 550 liters of oxygen inhaled, and 200 liters of CO₂ exhaled. These are general averages and actual values vary based on individual factors like activity level, health, and environment."
+          },
+          {
+            question: "What is the next birthday countdown?",
+            answer: "The next birthday countdown shows exactly how many days, hours, and minutes remain until your next birthday. It's calculated in real-time based on your birth date and the current date, helping you track when you'll turn a year older!"
+          },
+          {
+            question: "Are the famous birthdays accurate?",
+            answer: "Yes! Our famous birthdays database includes well-documented historical figures, celebrities, and notable personalities. We've curated a collection of people from various fields including science, arts, politics, and entertainment who were born on each day of the year."
+          }
+        ]}
+      />
     </div>
   );
 }
