@@ -125,7 +125,18 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Link href={calculator.href}>
+              <Link 
+                href={calculator.href}
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).gtag) {
+                    (window as any).gtag('event', 'tool_click', {
+                      event_category: 'calculator',
+                      event_label: calculator.title,
+                      tool_name: calculator.title
+                    });
+                  }
+                }}
+              >
                 <Card className="glass-strong border-2 border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 h-full cursor-pointer group hover:scale-105 bg-transparent">
                   <CardContent className="p-6">
                     <div className="text-center">
