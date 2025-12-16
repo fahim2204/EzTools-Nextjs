@@ -69,6 +69,14 @@ export default function LandCalculator() {
       return;
     }
 
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'calculate', {
+        event_category: 'calculator',
+        event_label: 'Land Calculator',
+        calculator_mode: shape
+      });
+    }
+
     setResultSqFt(area);
   };
 

@@ -69,6 +69,15 @@ export default function BMICalculator() {
     }
 
     const bmiResult = calculateBMI(weight, height, system);
+    
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'calculate', {
+        event_category: 'calculator',
+        event_label: 'BMI Calculator',
+        value: bmiResult.bmi
+      });
+    }
+
     setResult(bmiResult);
   };
 

@@ -70,6 +70,14 @@ export default function LoanCalculator() {
         return;
     }
 
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'calculate', {
+        event_category: 'calculator',
+        event_label: 'Loan Calculator',
+        value: p
+      });
+    }
+
     setResult({
       monthlyPayment: monthly,
       totalPayment: monthly * n,

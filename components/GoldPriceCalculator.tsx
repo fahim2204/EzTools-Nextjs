@@ -44,6 +44,14 @@ export default function GoldPriceCalculator() {
       return;
     }
 
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'calculate', {
+        event_category: 'calculator',
+        event_label: 'Gold Price Calculator',
+        value: w
+      });
+    }
+
     setResult(w * r);
   };
 

@@ -43,6 +43,13 @@ export default function AgeCalculator() {
     const insights = calculateLifeInsights(result.totalDays);
     const famous = getFamousBirthdays(nativeDate.getMonth(), nativeDate.getDate());
 
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'calculate', {
+        event_category: 'calculator',
+        event_label: 'Age Calculator'
+      });
+    }
+
     setAgeResult(result);
     setNextBirthday(nextBday);
     setLifeInsights(insights);

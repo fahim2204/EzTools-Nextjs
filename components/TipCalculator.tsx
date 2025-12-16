@@ -56,6 +56,14 @@ export default function TipCalculator() {
     const tipAmt = b * (t / 100);
     const total = b + tipAmt;
     
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'calculate', {
+        event_category: 'calculator',
+        event_label: 'Tip Calculator',
+        value: tipAmt
+      });
+    }
+
     setResult({
       tipAmount: tipAmt,
       totalWithTip: total,
