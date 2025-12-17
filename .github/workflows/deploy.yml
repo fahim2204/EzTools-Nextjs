@@ -20,22 +20,22 @@ jobs:
 
       - name: Deploy files to VPS
         env:
-          RSYNC_RSH: "ssh -o StrictHostKeyChecking=no -o LogLevel=QUIET"
+          RSYNC_RSH: "ssh -T -o StrictHostKeyChecking=no -o LogLevel=ERROR"
         run: |
           rsync -avz --delete \
             --exclude 'node_modules' \
             --exclude '.next' \
             --exclude '.git' \
+            --exclude '.env*' \
             ./ \
-            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}
-
+            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}/
 
       - name: Build and restart on VPS
         run: |
-          ssh -o StrictHostKeyChecking=no \
+          ssh -T -o StrictHostKeyChecking=no \
             ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} \
             "cd /home/fahim/web/ezcalc.xyz && \
-            npm ci --production && \
+            npm ci && \
             npm run build && \
-            pm2 restart ezcalc || pm2 PORT=3002 start npm --name ezcalc -- start && \
+            pm2 restart ezcalc || PORT=3001 pm2 start npm --name ezcalc -- start && \
             pm2 save"
