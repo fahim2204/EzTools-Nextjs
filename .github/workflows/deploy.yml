@@ -19,12 +19,13 @@ jobs:
           ssh-private-key: ${{ secrets.VPS_KEY }}
 
       - name: Deploy files to VPS
+        env:
+          RSYNC_RSH: "ssh -T -o StrictHostKeyChecking=no -o LogLevel=QUIET"
         run: |
           rsync -avz --delete \
             --rsync-path="rsync" \
-          -e "ssh -T -o StrictHostKeyChecking=no -o LogLevel=ERROR" \
-          ./ \
-          ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}
+            ./ \
+            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}
 
 
       - name: Build and restart on VPS
