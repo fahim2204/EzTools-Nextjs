@@ -20,10 +20,12 @@ jobs:
 
       - name: Deploy files to VPS
         env:
-          RSYNC_RSH: "ssh -T -o StrictHostKeyChecking=no -o LogLevel=QUIET"
+          RSYNC_RSH: "ssh -o StrictHostKeyChecking=no -o LogLevel=QUIET"
         run: |
           rsync -avz --delete \
-            --rsync-path="rsync" \
+            --exclude 'node_modules' \
+            --exclude '.next' \
+            --exclude '.git' \
             ./ \
             ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}
 
