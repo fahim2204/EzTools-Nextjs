@@ -21,13 +21,11 @@ jobs:
       - name: Deploy files to VPS
         run: |
           rsync -avz --delete \
-            --exclude 'node_modules' \
-            --exclude '.next' \
-            --exclude '.git' \
-            --exclude '.env*' \
-            -e "ssh -o StrictHostKeyChecking=no" \
-            ./ \
-            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}/
+            --rsync-path="rsync" \
+          -e "ssh -T -o StrictHostKeyChecking=no" \
+          ./ \
+          ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}
+
 
       - name: Build and restart on VPS
         run: |
