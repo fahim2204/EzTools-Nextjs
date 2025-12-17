@@ -37,4 +37,5 @@ jobs:
             "cd /home/fahim/web/ezcalc.xyz && \
             npm ci --production && \
             npm run build && \
-            pm2 restart ezcalc || pm2 start npm --name ezcalc -- start"
+            pm2 restart ezcalc || pm2 PORT=3002 start npm --name ezcalc -- start && \
+            pm2 save"
