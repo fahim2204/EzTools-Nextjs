@@ -1,0 +1,39 @@
+name: Deploy ezcalc.xyz to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_KEY }}
+
+      - name: Deploy files to VPS
+        run: |
+          rsync -avz --delete \
+            --exclude 'node_modules' \
+            --exclude '.next' \
+            --exclude '.git' \
+            --exclude '.env*' \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            ./ \
+            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}/
+
+      - name: Build and restart on VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no \
+            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} \
+            "cd /home/fahim/web/ezcalc.xyz && \
+            npm ci --production && \
+            npm run build && \
+            pm2 restart ezcalc || pm2 start npm --name ezcalc -- start"
