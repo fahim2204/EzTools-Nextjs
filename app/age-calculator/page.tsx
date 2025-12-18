@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardHeader, CardBody as CardContent, Button, DatePicker } from "@nextui-org/react";
-import { parseDate, getLocalTimeZone, today, CalendarDate } from "@internationalized/date";
+import { getLocalTimeZone, today, CalendarDate } from "@internationalized/date";
 import { motion, AnimatePresence } from "framer-motion";
 import { calculateAge, calculateNextBirthday, calculateLifeInsights, AgeResult, NextBirthday, LifeInsights as LifeInsightsType } from "@/lib/ageCalculations";
 import { getFamousBirthdays, FamousPerson } from "@/data/famousBirthdays";
@@ -10,7 +10,6 @@ import ResultsDisplay from "@/components/ResultsDisplay";
 import LifeInsights from "@/components/LifeInsights";
 import FamousBirthdays from "@/components/FamousBirthdays";
 import FAQ from "@/components/FAQ";
-import AdPlaceholder from "@/components/AdPlaceholder";
 
 export default function AgeCalculator() {
   const [date, setDate] = useState<CalendarDate | null>(null);
@@ -20,6 +19,15 @@ export default function AgeCalculator() {
   const [lifeInsights, setLifeInsights] = useState<LifeInsightsType | null>(null);
   const [famousPeople, setFamousPeople] = useState<FamousPerson[]>([]);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (isCalculated) {
+      const resultsElement = document.getElementById('results');
+      if (resultsElement) {
+        resultsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }, [isCalculated]);
 
   const handleCalculate = () => {
     setError("");
@@ -133,8 +141,6 @@ export default function AgeCalculator() {
             exit={{ opacity: 0 }}
             className="container mx-auto px-4 space-y-12"
           >
-            <AdPlaceholder position="top" />
-
             <div id="results">
               <ResultsDisplay ageResult={ageResult} nextBirthday={nextBirthday} />
             </div>
@@ -142,8 +148,6 @@ export default function AgeCalculator() {
             <LifeInsights insights={lifeInsights} />
             
             <FamousBirthdays people={famousPeople} />
-
-            <AdPlaceholder position="bottom" />
           </motion.div>
         )}
       </AnimatePresence>
