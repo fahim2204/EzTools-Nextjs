@@ -4,6 +4,12 @@ import Link from "next/link";
 export const metadata = {
   title: "Terms of Service | EZCalc",
   description: "Terms of Service for EZCalc. Please read our terms and conditions carefully.",
+  alternates: {
+    canonical: "https://ezcalc.xyz/terms",
+  },
+  openGraph: {
+    url: "https://ezcalc.xyz/terms",
+  },
 };
 
 export default function TermsPage() {

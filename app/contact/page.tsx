@@ -4,6 +4,12 @@ import Link from "next/link";
 export const metadata = {
   title: "Contact Us | EZCalc",
   description: "Get in touch with the EZCalc team for support, suggestions, or inquiries.",
+  alternates: {
+    canonical: "https://ezcalc.xyz/contact",
+  },
+  openGraph: {
+    url: "https://ezcalc.xyz/contact",
+  },
 };
 
 export default function ContactPage() {

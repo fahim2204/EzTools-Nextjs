@@ -4,6 +4,12 @@ import Link from "next/link";
 export const metadata = {
   title: "About Us | EZCalc",
   description: "Learn about EZCalc's mission to provide free, accurate, and easy-to-use online calculators for everyone.",
+  alternates: {
+    canonical: "https://ezcalc.xyz/about",
+  },
+  openGraph: {
+    url: "https://ezcalc.xyz/about",
+  },
 };
 
 export default function AboutPage() {

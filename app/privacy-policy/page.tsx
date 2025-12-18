@@ -4,6 +4,12 @@ import Link from "next/link";
 export const metadata = {
   title: "Privacy Policy | EZCalc",
   description: "Privacy Policy for EZCalc. Learn how we handle your data.",
+  alternates: {
+    canonical: "https://ezcalc.xyz/privacy-policy",
+  },
+  openGraph: {
+    url: "https://ezcalc.xyz/privacy-policy",
+  },
 };
 
 export default function PrivacyPolicyPage() {

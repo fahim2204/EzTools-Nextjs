@@ -10,12 +10,13 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL('https://ezcalc.xyz'),
   title: {
-    default: "Free Online Calculators – Age, BMI, Gold Price, Land & More | EZCalc",
+    default: "EZCalc – Free Online Calculators (Age, BMI, Gold, Land & More)",
     template: "%s | EZCalc"
   },
   applicationName: "EZCalc",
   description: "Free online calculators for age, BMI, gold prices, land area, loans, mortgages, percentages, tips, and more. Fast, accurate, and easy-to-use calculators for all your needs.",
   keywords: [
+    "EZCalc",
     "free online calculators",
     "age calculator",
     "BMI calculator",
@@ -30,6 +31,10 @@ export const metadata: Metadata = {
     "health calculator",
     "measurement calculator"
   ],
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
   alternates: {
     canonical: "https://ezcalc.xyz",
   },
@@ -45,7 +50,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://ezcalc.xyz",
-    title: "Free Online Calculators - Age, BMI, Gold Price, Land & More",
+    title: "EZCalc - Free Online Calculators",
     description: "Calculate anything with our free online calculators. Age, BMI, gold prices, land area, loans, and more. Fast, accurate, and easy to use.",
     siteName: "EZCalc",
     images: [
@@ -59,7 +64,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Online Calculators - Age, BMI, Gold Price, Land & More",
+    title: "EZCalc - Free Online Calculators",
     description: "Calculate anything with our free online calculators. Fast, accurate, and easy to use.",
   },
   robots: {
@@ -87,6 +92,7 @@ export default function RootLayout({
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-Y11DNC9PE3"
           strategy="afterInteractive"
+          id="gtag-base"
         />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
@@ -101,6 +107,7 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7554208332966422"
           crossOrigin="anonymous"
           strategy="afterInteractive"
+          id="adsense"
         />
         <script
           type="application/ld+json"
@@ -110,6 +117,7 @@ export default function RootLayout({
                 "@context": "https://schema.org",
                 "@type": "WebSite",
                 "name": "EZCalc",
+                "alternateName": ["EZ Calculator", "EZCalc XYZ"],
                 "url": "https://ezcalc.xyz",
                 "description": "Free online calculators for age, BMI, gold prices, land area, loans, mortgages, percentages, tips, and more"
               },
