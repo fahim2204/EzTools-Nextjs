@@ -47,6 +47,16 @@ const calculators: CalculatorCard[] = [
     tags: ["gold", "price", "metal", "investment", "currency"],
   },
   {
+    title: "Gold Weight Converter",
+    description:
+      "Convert between traditional gold units (Vori, Ana, Roti, Point) and grams instantly.",
+    icon: "⚖️",
+    href: "/gold-weight-converter",
+    color: "amber",
+    gradient: "from-amber-600 to-yellow-600",
+    tags: ["gold", "converter", "vori", "ana", "weight", "traditional units"],
+  },
+  {
     title: "Land Calculator",
     description:
       "Calculate land area, convert between different units, and measure property dimensions.",
@@ -148,7 +158,7 @@ export default function Home() {
           className="max-w-2xl mx-auto mb-12"
         >
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
               <svg
                 className="h-5 w-5 text-gray-400"
                 fill="none"
