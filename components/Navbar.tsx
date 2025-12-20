@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import {
   Navbar as NextUINavbar,
   NavbarBrand,
@@ -36,8 +37,17 @@ export default function Navbar() {
           className="sm:hidden text-white"
         />
         <NavbarBrand>
-          <Link href="/" className="font-bold text-inherit text-white text-xl">
-            EZCalc
+          <Link href="/" className="flex items-center gap-2 font-bold text-inherit text-white text-xl group transition-all duration-300 hover:scale-105">
+            <Image
+              src="/images/logo.png"
+              alt="EZCalc Logo"
+              width={32}
+              height={32}
+              className="aspect-square transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110"
+            />
+            <span className="transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:via-pink-400 group-hover:to-yellow-400 group-hover:bg-clip-text group-hover:text-transparent">
+              EZCalc
+            </span>
           </Link>
         </NavbarBrand>
       </NavbarContent>
@@ -53,22 +63,22 @@ export default function Navbar() {
             BMI
           </Link>
         </NavbarItem>
-         <NavbarItem>
+        <NavbarItem>
           <Link href="/gold-price-calculator" className="text-gray-300 hover:text-white transition-colors">
             Gold
           </Link>
         </NavbarItem>
         <NavbarItem>
-            <Link href="/loan-calculator" className="text-gray-300 hover:text-white transition-colors">
+          <Link href="/loan-calculator" className="text-gray-300 hover:text-white transition-colors">
             Loan
-            </Link>
+          </Link>
         </NavbarItem>
       </NavbarContent>
 
       <NavbarContent justify="end">
         <NavbarItem>
           <Button as={Link} color="primary" href="/" variant="flat" className="bg-white/10 text-white hover:bg-white/20">
-             All Calculators
+            All Calculators
           </Button>
         </NavbarItem>
       </NavbarContent>

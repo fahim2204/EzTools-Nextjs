@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardHeader, CardBody as CardContent, Button, Input, Tab, Tabs } from "@nextui-org/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { calculateBMI, BMIResult, UnitSystem } from "@/lib/bmiCalculations";
+import { calculateBMI, BMIResult } from "@/lib/bmiCalculations";
 import BMIResultsDisplay from "@/components/BMIResultsDisplay";
 import FAQ from "@/components/FAQ";
-import AdPlaceholder from "@/components/AdPlaceholder";
+
 
 const bmiFAQs = [
   {
@@ -28,7 +28,9 @@ const bmiFAQs = [
 ];
 
 export default function BMICalculator() {
-  const [system, setSystem] = useState<UnitSystem>("metric");
+  const [heightUnit, setHeightUnit] = useState<"metric" | "imperial">("metric");
+  const [weightUnit, setWeightUnit] = useState<"metric" | "imperial">("metric");
+  const [gender, setGender] = useState<"male" | "female" | null>(null);
   
   // Metric State
   const [heightCm, setHeightCm] = useState("");
@@ -44,31 +46,47 @@ export default function BMICalculator() {
 
   const handleCalculate = () => {
     setError("");
-    let weight = 0;
-    let height = 0;
+    let heightInCm = 0;
+    let weightInKg = 0;
 
-    if (system === "metric") {
-      if (!heightCm || !weightKg) {
-        setError("Please enter both height and weight");
+    // Convert height to cm
+    if (heightUnit === "metric") {
+      if (!heightCm) {
+        setError("Please enter height");
         return;
       }
-      height = parseFloat(heightCm);
-      weight = parseFloat(weightKg);
+      heightInCm = parseFloat(heightCm);
     } else {
-      if (!heightFt || !heightIn || !weightLbs) {
-        setError("Please enter height (ft & in) and weight");
+      if (!heightFt || !heightIn) {
+        setError("Please enter height (ft & in)");
         return;
       }
-      height = parseFloat(heightFt) * 12 + parseFloat(heightIn);
-      weight = parseFloat(weightLbs);
+      const totalInches = parseFloat(heightFt) * 12 + parseFloat(heightIn);
+      heightInCm = totalInches * 2.54; // Convert inches to cm
     }
 
-    if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+    // Convert weight to kg
+    if (weightUnit === "metric") {
+      if (!weightKg) {
+        setError("Please enter weight");
+        return;
+      }
+      weightInKg = parseFloat(weightKg);
+    } else {
+      if (!weightLbs) {
+        setError("Please enter weight");
+        return;
+      }
+      weightInKg = parseFloat(weightLbs) * 0.453592; // Convert lbs to kg
+    }
+
+    if (isNaN(heightInCm) || isNaN(weightInKg) || heightInCm <= 0 || weightInKg <= 0) {
       setError("Please enter valid positive numbers");
       return;
     }
 
-    const bmiResult = calculateBMI(weight, height, system);
+    // Calculate BMI using metric system
+    const bmiResult = calculateBMI(weightInKg, heightInCm, "metric");
     
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'calculate', {
@@ -86,10 +104,27 @@ export default function BMICalculator() {
     setError("");
   };
 
+  useEffect(() => {
+    if (result) {
+      const resultsElement = document.getElementById("results");
+      if (resultsElement) {
+        setTimeout(() => {
+          const elementPosition = resultsElement.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - 100; // 100px offset for navbar
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }, 100);
+      }
+    }
+  }, [result]);
+
   return (
     <div className="min-h-screen bg-transparent pb-20">
       {/* Hero Section */}
-      <section className="relative pt-20 pb-32 px-4 overflow-hidden">
+      <section className="relative pt-20 pb-16 px-4 overflow-hidden">
         <div className="container mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -112,103 +147,143 @@ export default function BMICalculator() {
             className="max-w-xl mx-auto"
           >
             <Card className="glass-strong border-2 border-purple-500/20 shadow-2xl shadow-purple-900/20">
-              <CardHeader className="flex flex-col gap-2 pb-0">
-                <Tabs 
-                  selectedKey={system} 
-                  onSelectionChange={(key) => {
-                    setSystem(key as UnitSystem);
-                    reset();
-                  }}
-                  color="secondary"
-                  variant="bordered"
-                  classNames={{
-                    tabList: "bg-black/20 border-purple-500/20",
-                    cursor: "bg-purple-500/20",
-                    tabContent: "text-white group-data-[selected=true]:text-purple-300"
-                  }}
-                >
-                  <Tab key="metric" title="Metric (kg/cm)" />
-                  <Tab key="imperial" title="Imperial (lbs/ft)" />
-                </Tabs>
+              <CardHeader className="flex flex-col gap-4 pb-0">
+                <h3 className="text-lg font-semibold text-gray-300">Select Gender</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <button
+                    onClick={() => setGender("male")}
+                    className={`aspect-square p-4 rounded-lg border-2 transition-all flex flex-col items-center justify-center ${
+                      gender === "male"
+                        ? "border-blue-500 bg-blue-500/20 shadow-lg shadow-blue-500/25"
+                        : "border-purple-500/30 bg-black/20 hover:bg-black/30"
+                    }`}
+                  >
+                    <div className="text-4xl mb-2">👨</div>
+                    <div className="text-sm font-medium text-gray-300">Male</div>
+                  </button>
+                  <button
+                    onClick={() => setGender("female")}
+                    className={`aspect-square p-4 rounded-lg border-2 transition-all flex flex-col items-center justify-center ${
+                      gender === "female"
+                        ? "border-pink-500 bg-pink-500/20 shadow-lg shadow-pink-500/25"
+                        : "border-purple-500/30 bg-black/20 hover:bg-black/30"
+                    }`}
+                  >
+                    <div className="text-4xl mb-2">👩</div>
+                    <div className="text-sm font-medium text-gray-300">Female</div>
+                  </button>
+                </div>
               </CardHeader>
               <CardContent className="space-y-6 p-6">
-                <div className="grid gap-4">
-                  {system === "metric" ? (
-                    <>
-                      <Input
-                        type="number"
-                        label="Height"
-                        placeholder="175"
-                        endContent={<div className="pointer-events-none flex items-center"><span className="text-default-400 text-small">cm</span></div>}
-                        value={heightCm}
-                        onValueChange={setHeightCm}
-                        variant="bordered"
-                        classNames={{
-                          inputWrapper: "border-purple-500/30 bg-black/20 hover:bg-black/30",
-                          label: "text-gray-300",
-                          input: "text-white",
-                        }}
-                      />
-                      <Input
-                        type="number"
-                        label="Weight"
-                        placeholder="70"
-                        endContent={<div className="pointer-events-none flex items-center"><span className="text-default-400 text-small">kg</span></div>}
-                        value={weightKg}
-                        onValueChange={setWeightKg}
-                        variant="bordered"
-                        classNames={{
-                          inputWrapper: "border-purple-500/30 bg-black/20 hover:bg-black/30",
-                          label: "text-gray-300",
-                          input: "text-white",
-                        }}
-                      />
-                    </>
+                {/* Height Input */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="text-sm font-medium text-gray-300">Height</label>
+                    <Tabs 
+                      selectedKey={heightUnit} 
+                      onSelectionChange={(key) => setHeightUnit(key as "metric" | "imperial")}
+                      size="sm"
+                      color="secondary"
+                      variant="bordered"
+                      classNames={{
+                        tabList: "bg-black/20 border-purple-500/20",
+                        cursor: "bg-purple-500/20",
+                        tabContent: "text-white group-data-[selected=true]:text-purple-300"
+                      }}
+                    >
+                      <Tab key="metric" title="cm" />
+                      <Tab key="imperial" title="ft/in" />
+                    </Tabs>
+                  </div>
+                  {heightUnit === "metric" ? (
+                    <Input
+                      type="number"
+                      placeholder="175"
+                      endContent={<div className="pointer-events-none flex items-center"><span className="text-default-400 text-small">cm</span></div>}
+                      value={heightCm}
+                      onValueChange={setHeightCm}
+                      variant="bordered"
+                      classNames={{
+                        inputWrapper: "border-purple-500/30 bg-black/20 hover:bg-black/30",
+                        input: "text-white placeholder:text-gray-700",
+                      }}
+                    />
                   ) : (
-                    <>
-                       <div className="flex gap-2">
-                        <Input
-                          type="number"
-                          label="Height (Ft)"
-                          placeholder="5"
-                          value={heightFt}
-                          onValueChange={setHeightFt}
-                          variant="bordered"
-                          classNames={{
-                            inputWrapper: "border-purple-500/30 bg-black/20 hover:bg-black/30",
-                            label: "text-gray-300",
-                            input: "text-white",
-                          }}
-                        />
-                         <Input
-                          type="number"
-                          label="(In)"
-                          placeholder="10"
-                          value={heightIn}
-                          onValueChange={setHeightIn}
-                          variant="bordered"
-                          classNames={{
-                            inputWrapper: "border-purple-500/30 bg-black/20 hover:bg-black/30",
-                            label: "text-gray-300",
-                            input: "text-white",
-                          }}
-                        />
-                      </div>
+                    <div className="flex gap-2">
                       <Input
                         type="number"
-                        label="Weight"
-                        placeholder="160"
-                        endContent={<div className="pointer-events-none flex items-center"><span className="text-default-400 text-small">lbs</span></div>}
-                        value={weightLbs}
-                        onValueChange={setWeightLbs}
+                        placeholder="5"
+                        endContent={<div className="pointer-events-none flex items-center"><span className="text-default-400 text-small">ft</span></div>}
+                        value={heightFt}
+                        onValueChange={setHeightFt}
                         variant="bordered"
                         classNames={{
                           inputWrapper: "border-purple-500/30 bg-black/20 hover:bg-black/30",
-                          label: "text-gray-300",
-                          input: "text-white",
+                          input: "text-white placeholder:text-gray-700",
                         }}
                       />
-                    </>
+                      <Input
+                        type="number"
+                        placeholder="10"
+                        endContent={<div className="pointer-events-none flex items-center"><span className="text-default-400 text-small">in</span></div>}
+                        value={heightIn}
+                        onValueChange={setHeightIn}
+                        variant="bordered"
+                        classNames={{
+                          inputWrapper: "border-purple-500/30 bg-black/20 hover:bg-black/30",
+                          input: "text-white placeholder:text-gray-700",
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* Weight Input */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="text-sm font-medium text-gray-300">Weight</label>
+                    <Tabs 
+                      selectedKey={weightUnit} 
+                      onSelectionChange={(key) => setWeightUnit(key as "metric" | "imperial")}
+                      size="sm"
+                      color="secondary"
+                      variant="bordered"
+                      classNames={{
+                        tabList: "bg-black/20 border-purple-500/20",
+                        cursor: "bg-purple-500/20",
+                        tabContent: "text-white group-data-[selected=true]:text-purple-300"
+                      }}
+                    >
+                      <Tab key="metric" title="kg" />
+                      <Tab key="imperial" title="lbs" />
+                    </Tabs>
+                  </div>
+                  {weightUnit === "metric" ? (
+                    <Input
+                      type="number"
+                      placeholder="70"
+                      endContent={<div className="pointer-events-none flex items-center"><span className="text-default-400 text-small">kg</span></div>}
+                      value={weightKg}
+                      onValueChange={setWeightKg}
+                      variant="bordered"
+                      classNames={{
+                        inputWrapper: "border-purple-500/30 bg-black/20 hover:bg-black/30",
+                        input: "text-white placeholder:text-gray-700",
+                      }}
+                    />
+                  ) : (
+                    <Input
+                      type="number"
+                      placeholder="160"
+                      endContent={<div className="pointer-events-none flex items-center"><span className="text-default-400 text-small">lbs</span></div>}
+                      value={weightLbs}
+                      onValueChange={setWeightLbs}
+                      variant="bordered"
+                      classNames={{
+                        inputWrapper: "border-purple-500/30 bg-black/20 hover:bg-black/30",
+                        input: "text-white placeholder:text-gray-700",
+                      }}
+                    />
                   )}
                 </div>
 
@@ -238,13 +313,13 @@ export default function BMICalculator() {
             exit={{ opacity: 0 }}
             className="container mx-auto px-4 space-y-12"
           >
-            <AdPlaceholder position="top" />
+
 
             <div id="results">
-              <BMIResultsDisplay result={result} system={system} />
+              <BMIResultsDisplay result={result} system="metric" />
             </div>
 
-            <AdPlaceholder position="bottom" />
+
           </motion.div>
         )}
       </AnimatePresence>
