@@ -87,7 +87,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <head>
+      <body className={inter.className}>
         {/* Google tag (gtag.js) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-Y11DNC9PE3"
@@ -102,15 +102,19 @@ export default function RootLayout({
             gtag('config', 'G-Y11DNC9PE3');
           `}
         </Script>
+        
+        {/* Google AdSense */}
         <Script
-          async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7554208332966422"
+          strategy="lazyOnload"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
-          id="adsense"
         />
-        <script
+        
+        {/* Structured Data */}
+        <Script
+          id="structured-data"
           type="application/ld+json"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify([
               {
@@ -147,8 +151,7 @@ export default function RootLayout({
             ])
           }}
         />
-      </head>
-      <body className={inter.className}>
+        
         <Providers>
           <Navbar />
           {children}
