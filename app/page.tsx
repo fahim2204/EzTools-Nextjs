@@ -3,6 +3,7 @@
 import { Card, CardBody as CardContent } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useState } from "react";
 
 interface CalculatorCard {
   title: string;
@@ -11,6 +12,7 @@ interface CalculatorCard {
   href: string;
   color: string;
   gradient: string;
+  tags: string[];
 }
 
 const calculators: CalculatorCard[] = [
@@ -22,6 +24,7 @@ const calculators: CalculatorCard[] = [
     href: "/age-calculator",
     color: "purple",
     gradient: "from-purple-600 to-pink-600",
+    tags: ["age", "birthday", "date", "time", "years"],
   },
   {
     title: "BMI Calculator",
@@ -31,6 +34,7 @@ const calculators: CalculatorCard[] = [
     href: "/bmi-calculator",
     color: "blue",
     gradient: "from-blue-600 to-cyan-600",
+    tags: ["bmi", "health", "weight", "fitness", "body"],
   },
   {
     title: "Gold Price Calculator",
@@ -40,6 +44,7 @@ const calculators: CalculatorCard[] = [
     href: "/gold-price-calculator",
     color: "yellow",
     gradient: "from-yellow-600 to-orange-600",
+    tags: ["gold", "price", "metal", "investment", "currency"],
   },
   {
     title: "Land Calculator",
@@ -49,6 +54,7 @@ const calculators: CalculatorCard[] = [
     href: "/land-calculator",
     color: "green",
     gradient: "from-green-600 to-emerald-600",
+    tags: ["land", "area", "property", "measurement", "real estate"],
   },
   {
     title: "Loan Calculator",
@@ -58,6 +64,7 @@ const calculators: CalculatorCard[] = [
     href: "/loan-calculator",
     color: "indigo",
     gradient: "from-indigo-600 to-purple-600",
+    tags: ["loan", "finance", "interest", "payment", "debt"],
   },
   {
     title: "Mortgage Calculator",
@@ -67,6 +74,7 @@ const calculators: CalculatorCard[] = [
     href: "/mortgage-calculator",
     color: "pink",
     gradient: "from-pink-600 to-rose-600",
+    tags: ["mortgage", "home", "property", "finance", "payment"],
   },
   {
     title: "Percentage Calculator",
@@ -76,6 +84,7 @@ const calculators: CalculatorCard[] = [
     href: "/percentage-calculator",
     color: "teal",
     gradient: "from-teal-600 to-cyan-600",
+    tags: ["percentage", "math", "calculation", "ratio", "proportion"],
   },
   {
     title: "Tip Calculator",
@@ -85,10 +94,25 @@ const calculators: CalculatorCard[] = [
     href: "/tip-calculator",
     color: "orange",
     gradient: "from-orange-600 to-red-600",
+    tags: ["tip", "gratuity", "bill", "restaurant", "service"],
   },
 ];
 
 export default function Home() {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Filter calculators based on search query
+  const filteredCalculators = calculators.filter((calculator) => {
+    const query = searchQuery.toLowerCase().trim();
+    if (!query) return true;
+
+    return (
+      calculator.title.toLowerCase().includes(query) ||
+      calculator.description.toLowerCase().includes(query) ||
+      calculator.tags.some((tag) => tag.toLowerCase().includes(query))
+    );
+  });
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900">
       {/* Background decoration */}
@@ -116,9 +140,68 @@ export default function Home() {
           </p>
         </motion.div>
 
+        {/* Search Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="max-w-2xl mx-auto mb-12"
+        >
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <svg
+                className="h-5 w-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search calculators by name, description, or tags..."
+              className="w-full pl-12 pr-12 py-4 bg-gray-800/50 border-2 border-purple-500/30 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/70 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300 backdrop-blur-sm"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-white transition-colors"
+              >
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            )}
+          </div>
+          {searchQuery && (
+            <p className="mt-3 text-sm text-gray-400 text-center">
+              Found {filteredCalculators.length} calculator{filteredCalculators.length !== 1 ? 's' : ''}
+            </p>
+          )}
+        </motion.div>
+
         {/* Calculator Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
-          {calculators.map((calculator, index) => (
+          {filteredCalculators.length > 0 ? (
+            filteredCalculators.map((calculator, index) => (
             <motion.div
               key={calculator.href}
               initial={{ opacity: 0, y: 20 }}
@@ -159,7 +242,26 @@ export default function Home() {
                 </Card>
               </Link>
             </motion.div>
-          ))}
+            ))
+          ) : (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="col-span-full flex flex-col items-center justify-center py-20"
+            >
+              <div className="text-6xl mb-4">🔍</div>
+              <h3 className="text-2xl font-bold text-white mb-2">No calculators found</h3>
+              <p className="text-gray-400 mb-6">
+                Try searching with different keywords or tags
+              </p>
+              <button
+                onClick={() => setSearchQuery("")}
+                className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:scale-105 transition-transform duration-300"
+              >
+                Clear Search
+              </button>
+            </motion.div>
+          )}
         </div>
 
         {/* SEO Content */}
@@ -174,7 +276,7 @@ export default function Home() {
           </h2>
           <div className="text-gray-300 space-y-4">
             <p>
-              Welcome to EZCalc – your one-stop destination for free, accurate,
+              Welcome to EZCalc - your one-stop destination for free, accurate,
               and easy-to-use online calculators. Whether you need to calculate
               your age, determine your BMI, convert units, or solve complex
               financial equations, we have the perfect calculator for you.
@@ -184,35 +286,35 @@ export default function Home() {
             </h3>
             <ul className="list-disc list-inside space-y-2 text-gray-400">
               <li>
-                <strong>Age Calculator</strong> – Calculate your exact age with
+                <strong>Age Calculator</strong> - Calculate your exact age with
                 life insights and famous birthdays
               </li>
               <li>
-                <strong>BMI Calculator</strong> – Determine your Body Mass Index
+                <strong>BMI Calculator</strong> - Determine your Body Mass Index
                 and health status
               </li>
               <li>
-                <strong>Gold Price Calculator</strong> – Track and convert gold
+                <strong>Gold Price Calculator</strong> - Track and convert gold
                 prices in real-time
               </li>
               <li>
-                <strong>Land Calculator</strong> – Calculate land area and
+                <strong>Land Calculator</strong> - Calculate land area and
                 convert between measurement units
               </li>
               <li>
-                <strong>Loan Calculator</strong> – Calculate loan payments,
+                <strong>Loan Calculator</strong> - Calculate loan payments,
                 interest, and amortization
               </li>
               <li>
-                <strong>Mortgage Calculator</strong> – Plan your home purchase
+                <strong>Mortgage Calculator</strong> - Plan your home purchase
                 with detailed mortgage calculations
               </li>
               <li>
-                <strong>Percentage Calculator</strong> – Solve percentage
+                <strong>Percentage Calculator</strong> - Solve percentage
                 problems and conversions
               </li>
               <li>
-                <strong>Tip Calculator</strong> – Calculate tips and split bills
+                <strong>Tip Calculator</strong> - Calculate tips and split bills
                 easily
               </li>
             </ul>
@@ -223,7 +325,7 @@ export default function Home() {
               calculations and complex computations.
             </p>
             <p className="mt-4">
-              EZCalc is designed with user experience in mind – fast loading
+              EZCalc is designed with user experience in mind - fast loading
               times, beautiful interfaces, and mobile-friendly designs ensure
               you can calculate anything, anywhere, anytime.
             </p>

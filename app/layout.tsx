@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import Navbar from "@/components/Navbar";
+import DeferredScripts from "@/components/DeferredScripts";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -88,29 +89,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={inter.className}>
-        {/* Google tag (gtag.js) */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-Y11DNC9PE3"
-          strategy="afterInteractive"
-          id="gtag-base"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-Y11DNC9PE3');
-          `}
-        </Script>
-        
-        {/* Google AdSense */}
-        <Script
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7554208332966422"
-          strategy="lazyOnload"
-          crossOrigin="anonymous"
-        />
-        
-        {/* Structured Data */}
+        {/* Structured Data - Critical, loads before interactive */}
         <Script
           id="structured-data"
           type="application/ld+json"
@@ -156,6 +135,9 @@ export default function RootLayout({
           <Navbar />
           {children}
         </Providers>
+        
+        {/* Deferred third-party scripts - loads after interaction or idle */}
+        <DeferredScripts />
       </body>
     </html>
   );
