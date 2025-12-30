@@ -79,13 +79,13 @@ const tools: ToolCard[] = [
   },
   {
     title: "Compress Image",
-    description: "Reduce image file size without losing quality. Optimize for web and mobile.",
-    icon: "📦",
+    description: "Reduce image file size while maintaining quality. Side-by-side comparison.",
+    icon: "📉",
     href: "/tools/compress-image",
-    color: "teal",
-    gradient: "from-teal-600 to-cyan-600",
-    status: "coming-soon",
-    tags: ["image", "compress", "optimize", "reduce size"],
+    color: "pink",
+    gradient: "from-pink-600 to-rose-600",
+    status: "available",
+    tags: ["image", "compress", "size", "reduce", "optimize"],
   },
 ];
 

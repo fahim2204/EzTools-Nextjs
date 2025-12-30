@@ -1,5 +1,6 @@
 // Image Converter Utility Functions
 // Handles client-side image format conversion with quality control
+import UPNG from 'upng-js';
 
 export interface ConversionOptions {
   format: string;
@@ -38,7 +39,7 @@ export const OUTPUT_FORMATS = [
 ];
 
 // Formats that support quality adjustment
-export const QUALITY_SUPPORTED_FORMATS = ['image/jpeg', 'image/webp'];
+export const QUALITY_SUPPORTED_FORMATS = ['image/jpeg', 'image/webp', 'image/png'];
 
 /**
  * Load an image file into an HTMLImageElement
@@ -105,8 +106,40 @@ export function canvasToBlob(
   quality: number
 ): Promise<Blob> {
   return new Promise((resolve, reject) => {
+    // Check if we need to use UPNG for PNG compression
+    if (format === 'image/png' && quality < 1.0) {
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        reject(new Error('Failed to get canvas context'));
+        return;
+      }
+
+      // Get image data
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const buffer = imageData.data.buffer;
+
+      // Map quality (0-1) to colors (2-256)
+      // Quality 1.0 = lossless (handled by default toBlob)
+      // Quality 0.9 = 256 colors
+      // Quality 0.1 = 16 colors
+      // Formula: 256 * quality, clamped between 2 and 256
+      const colors = Math.max(2, Math.min(256, Math.floor(256 * quality)));
+
+      try {
+        // Encode using UPNG with quantization
+        const pngBuffer = UPNG.encode([buffer], canvas.width, canvas.height, colors);
+        const blob = new Blob([pngBuffer], { type: 'image/png' });
+        resolve(blob);
+        return;
+      } catch (e) {
+        console.error('UPNG compression failed, falling back to default', e);
+        // Fallthrough to default canvas.toBlob
+      }
+    }
+
     // Normalize quality to 0-1 range
-    const normalizedQuality = quality / 100;
+    // Ensure we don't pass quality for PNG to standard toBlob as it ignores it
+    const imageQuality = format === 'image/png' ? undefined : quality;
 
     canvas.toBlob(
       (blob) => {
@@ -117,7 +150,7 @@ export function canvasToBlob(
         }
       },
       format,
-      normalizedQuality
+      imageQuality
     );
   });
 }
@@ -136,7 +169,7 @@ export async function convertImage(
     // Draw on canvas
     const canvas = imageToCanvas(image, options.maxWidth, options.maxHeight);
 
-    // Convert to blob
+    // Convert to blob (quality is passed as 0-1 range here from options.quality)
     const blob = await canvasToBlob(canvas, options.format, options.quality);
 
     // Create object URL
@@ -202,6 +235,7 @@ export function supportsQuality(format: string): boolean {
 export function getRecommendedQuality(format: string): number {
   if (format === 'image/jpeg') return 90;
   if (format === 'image/webp') return 90;
+  if (format === 'image/png') return 90; // Default to 230 colors approx
   return 100;
 }
 
