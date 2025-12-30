@@ -13,6 +13,7 @@ interface ImagePreviewProps {
   convertedFormat?: string;
   isConverting?: boolean;
   onDownload?: () => void;
+  onSendToConverter?: () => void;
   fileName: string;
   onFileNameChange: (name: string) => void;
 }
@@ -24,6 +25,7 @@ export default function ImagePreview({
   convertedFormat,
   isConverting = false,
   onDownload,
+  onSendToConverter,
   fileName,
   onFileNameChange,
 }: ImagePreviewProps) {
@@ -145,14 +147,26 @@ export default function ImagePreview({
               </div>
 
               {onDownload && (
-                <button
-                  onClick={onDownload}
-                  disabled={isConverting}
-                  className="w-full py-2 px-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 disabled:from-gray-600 disabled:to-gray-700 text-white rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 disabled:cursor-not-allowed"
-                >
-                  <Download className="w-4 h-4" />
-                  Download
-                </button>
+                <div className="space-y-2">
+                  <button
+                    onClick={onDownload}
+                    disabled={isConverting}
+                    className="w-full py-2 px-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 disabled:from-gray-600 disabled:to-gray-700 text-white rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 disabled:cursor-not-allowed"
+                  >
+                    <Download className="w-4 h-4" />
+                    Download
+                  </button>
+                  {onSendToConverter && (
+                    <button
+                      onClick={onSendToConverter}
+                      disabled={isConverting}
+                      className="w-full py-2 px-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 disabled:from-gray-600 disabled:to-gray-700 text-white rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 disabled:cursor-not-allowed"
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                      Send to Converter
+                    </button>
+                  )}
+                </div>
               )}
             </div>
           )}

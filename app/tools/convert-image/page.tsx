@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { ArrowLeft, RefreshCw } from "lucide-react";
 import ImageUploader from "@/components/ImageUploader";
 import FormatSelector from "@/components/FormatSelector";
@@ -14,8 +15,10 @@ import {
   getRecommendedQuality,
   ConversionResult,
 } from "@/lib/imageConverter";
+import { retrieveChainedImage, hasChainedImage } from "@/lib/toolChaining";
 
 export default function ConvertImagePage() {
+  const searchParams = useSearchParams();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [currentFileIndex, setCurrentFileIndex] = useState(0);
   const [outputFormat, setOutputFormat] = useState("image/png");
@@ -26,6 +29,27 @@ export default function ConvertImagePage() {
   const [customFileName, setCustomFileName] = useState<string>("");
 
   const currentFile = selectedFiles[currentFileIndex];
+
+  // Check for chained image on mount
+  useEffect(() => {
+    const loadChainedImage = async () => {
+      const from = searchParams.get('from');
+      if (from && hasChainedImage()) {
+        try {
+          const chainedFile = await retrieveChainedImage();
+          if (chainedFile) {
+            setSelectedFiles([chainedFile]);
+            setCurrentFileIndex(0);
+            setCustomFileName(chainedFile.name.replace(/\.[^/.]+$/, ''));
+          }
+        } catch (error) {
+          console.error('Failed to load chained image:', error);
+          setError('Failed to load image from previous tool');
+        }
+      }
+    };
+    loadChainedImage();
+  }, [searchParams]);
 
   // Map quality from 1-10 scale to internal 1-100 range
   // 1 = lowest quality (10%)

@@ -3,14 +3,17 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ArrowLeft, RefreshCw, Eraser } from "lucide-react";
 import ImageUploader from "@/components/ImageUploader";
 import IntensitySlider from "@/components/IntensitySlider";
 import ImagePreview from "@/components/ImagePreview";
 import { removeBackground } from "@/lib/backgroundRemover";
 import { downloadImage } from "@/lib/imageConverter";
+import { storeImageForChaining } from "@/lib/toolChaining";
 
 export default function RemoveBackgroundPage() {
+  const router = useRouter();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [currentFileIndex, setCurrentFileIndex] = useState(0);
   const [intensity, setIntensity] = useState(5); // 1-10 scale
@@ -79,6 +82,18 @@ export default function RemoveBackgroundPage() {
   const handleDownload = () => {
     if (processedBlob && currentFile) {
       downloadImage(processedBlob, customFileName || currentFile.name, "image/png");
+    }
+  };
+
+  const handleSendToConverter = async () => {
+    if (processedBlob && customFileName) {
+      try {
+        await storeImageForChaining(processedBlob, `${customFileName}.png`, "background-remover");
+        router.push("/tools/convert-image?from=background-remover");
+      } catch (error) {
+        console.error("Failed to send to converter:", error);
+        setError("Failed to send image to converter");
+      }
     }
   };
 
@@ -259,6 +274,7 @@ export default function RemoveBackgroundPage() {
                   convertedFormat="image/png"
                   isConverting={isProcessing}
                   onDownload={handleDownload}
+                  onSendToConverter={handleSendToConverter}
                   fileName={customFileName}
                   onFileNameChange={setCustomFileName}
                 />
