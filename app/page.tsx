@@ -44,7 +44,7 @@ const tools: ToolCard[] = [
     href: "/tools/crop-image",
     color: "green",
     gradient: "from-green-600 to-emerald-600",
-    status: "coming-soon",
+    status: "available",
     tags: ["image", "crop", "cut", "trim"],
   },
   {
