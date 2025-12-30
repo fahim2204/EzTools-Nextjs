@@ -45,7 +45,7 @@ export default function QualitySlider({
           Quality
         </label>
         <span className="text-sm font-bold text-blue-400">
-          {tempQuality}%
+          {tempQuality}
         </span>
       </div>
       
@@ -53,9 +53,10 @@ export default function QualitySlider({
         size="sm"
         step={1}
         minValue={1}
-        maxValue={100}
+        maxValue={10}
         value={tempQuality}
         onChange={(value) => setTempQuality(value as number)}
+        aria-label="Quality"
         className="w-full"
         classNames={{
           base: "max-w-full",
@@ -66,13 +67,13 @@ export default function QualitySlider({
       />
       
       <div className="flex justify-between text-xs text-gray-500 mt-1">
-        <span>Lower size</span>
-        <span>Higher quality</span>
+        <span>Smaller size</span>
+        <span>Best quality</span>
       </div>
 
-      {tempQuality < 70 && (
+      {tempQuality < 3 && (
         <p className="text-xs text-yellow-400 mt-2">
-          ⚠️ Quality below 70% may result in visible artifacts
+          ⚠️ Low quality may result in visible artifacts
         </p>
       )}
     </div>

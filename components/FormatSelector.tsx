@@ -24,6 +24,7 @@ export default function FormatSelector({
         onChange={(e) => onFormatChange(e.target.value)}
         placeholder="Select format"
         className="w-full"
+        aria-label="Output Format"
         classNames={{
           trigger: "bg-gray-800/50 border-gray-700 hover:border-blue-500/50 data-[hover=true]:bg-gray-800/70",
           value: "text-white",

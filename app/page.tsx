@@ -18,6 +18,16 @@ interface ToolCard {
 
 const tools: ToolCard[] = [
   {
+    title: "Remove Background",
+    description: "Automatically remove image backgrounds using AI directly in your browser.",
+    icon: "✨",
+    href: "/tools/remove-background",
+    color: "cyan",
+    gradient: "from-blue-600 to-cyan-600",
+    status: "available",
+    tags: ["image", "background", "remove", "ai", "transparent"],
+  },
+  {
     title: "Resize Image",
     description: "Resize images to any dimension while maintaining quality. Perfect for social media, websites, and apps.",
     icon: "📐",

@@ -19,7 +19,7 @@ export default function ConvertImagePage() {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [currentFileIndex, setCurrentFileIndex] = useState(0);
   const [outputFormat, setOutputFormat] = useState("image/png");
-  const [quality, setQuality] = useState(90);
+  const [quality, setQuality] = useState(9); // 1-10 scale
   const [conversionResult, setConversionResult] = useState<ConversionResult | null>(null);
   const [isConverting, setIsConverting] = useState(false);
   const [error, setError] = useState<string>("");
@@ -27,17 +27,17 @@ export default function ConvertImagePage() {
 
   const currentFile = selectedFiles[currentFileIndex];
 
-  // Update quality when format changes
-  useEffect(() => {
-    setQuality(getRecommendedQuality(outputFormat));
-  }, [outputFormat]);
-
-  // Auto-convert when file, format, or quality changes
-  useEffect(() => {
-    if (currentFile) {
-      handleConvert();
-    }
-  }, [currentFile, outputFormat, quality]);
+  // Map quality from 1-10 scale to internal 1-100 range
+  // 1 = lowest quality (10%)
+  // 5 = medium quality (50%)
+  // 9 = high quality (90%)
+  // 10 = maximum quality (100%)
+  const mapQualityToInternal = (quality: number): number => {
+    // Clamp quality to 1-10 range for safety
+    const clampedQuality = Math.max(1, Math.min(10, quality));
+    // Map 1-10 to 10-100 range
+    return Math.round(((clampedQuality - 1) / 9) * 90 + 10);
+  };
 
   const handleFilesSelected = (files: File[]) => {
     setSelectedFiles(files);
@@ -56,9 +56,10 @@ export default function ConvertImagePage() {
     setError("");
 
     try {
+      const internalQuality = mapQualityToInternal(quality);
       const result = await convertImage(currentFile, {
         format: outputFormat,
-        quality,
+        quality: internalQuality,
       });
       setConversionResult(result);
     } catch (err) {
@@ -81,7 +82,7 @@ export default function ConvertImagePage() {
     setConversionResult(null);
     setError("");
     setOutputFormat("image/png");
-    setQuality(90);
+    setQuality(9);
     setCustomFileName("");
   };
 
@@ -172,16 +173,27 @@ export default function ConvertImagePage() {
                   </button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <FormatSelector
-                    selectedFormat={outputFormat}
-                    onFormatChange={setOutputFormat}
-                  />
-                  <QualitySlider
-                    quality={quality}
-                    format={outputFormat}
-                    onQualityChange={setQuality}
-                  />
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormatSelector
+                      selectedFormat={outputFormat}
+                      onFormatChange={setOutputFormat}
+                    />
+                    <QualitySlider
+                      quality={quality}
+                      format={outputFormat}
+                      onQualityChange={setQuality}
+                    />
+                  </div>
+
+                  <button
+                    onClick={handleConvert}
+                    disabled={isConverting}
+                    className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 disabled:from-gray-600 disabled:to-gray-700 text-white rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 disabled:cursor-not-allowed"
+                  >
+                    <RefreshCw className={`w-5 h-5 ${isConverting ? 'animate-spin' : ''}`} />
+                    {isConverting ? "Converting..." : "Convert Image"}
+                  </button>
                 </div>
 
                 {/* Multiple Files Navigation */}
