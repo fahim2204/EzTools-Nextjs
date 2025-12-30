@@ -9,39 +9,39 @@ import DeferredScripts from "@/components/DeferredScripts";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ezcalc.xyz'),
+  metadataBase: new URL('https://imagepix.xyz'),
   title: {
-    default: "EZCalc – Free Online Calculators (Age, BMI, Gold, Land & More)",
-    template: "%s | EZCalc"
+    default: "ImagePix – Fast Tools for Images, PDFs & Audio",
+    template: "%s | ImagePix"
   },
-  applicationName: "EZCalc",
-  description: "Free online calculators for age, BMI, gold prices, land area, loans, mortgages, percentages, tips, and more. Fast, accurate, and easy-to-use calculators for all your needs.",
+  applicationName: "ImagePix",
+  description: "Fast, privacy-friendly online tools for images, PDFs, and audio. Resize, crop, convert, and compress files directly in your browser. No installation required.",
   keywords: [
-    "EZCalc",
-    "free online calculators",
-    "age calculator",
-    "BMI calculator",
-    "gold price calculator",
-    "land calculator",
-    "loan calculator",
-    "mortgage calculator",
-    "percentage calculator",
-    "tip calculator",
-    "unit converter",
-    "financial calculator",
-    "health calculator",
-    "measurement calculator"
+    "ImagePix",
+    "image tools",
+    "resize image",
+    "crop image",
+    "convert image",
+    "compress image",
+    "image converter",
+    "PDF tools",
+    "audio tools",
+    "online image editor",
+    "image optimizer",
+    "app icon generator",
+    "square image",
+    "remove padding"
   ],
   icons: {
     icon: "/icon.png",
     apple: "/apple-touch-icon.png",
   },
   alternates: {
-    canonical: "https://ezcalc.xyz",
+    canonical: "https://imagepix.xyz",
   },
-  authors: [{ name: "EZCalc" }],
-  creator: "EZCalc",
-  publisher: "EZCalc",
+  authors: [{ name: "ImagePix" }],
+  creator: "ImagePix",
+  publisher: "ImagePix",
   formatDetection: {
     email: false,
     address: false,
@@ -50,23 +50,23 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://ezcalc.xyz",
-    title: "EZCalc - Free Online Calculators",
-    description: "Calculate anything with our free online calculators. Age, BMI, gold prices, land area, loans, and more. Fast, accurate, and easy to use.",
-    siteName: "EZCalc",
+    url: "https://imagepix.xyz",
+    title: "ImagePix - Fast Tools for Images, PDFs & Audio",
+    description: "Fast, privacy-friendly online tools for images, PDFs, and audio. Process files directly in your browser. No installation required.",
+    siteName: "ImagePix",
     images: [
       {
-        url: "/images/ezcalc.webp",
+        url: "/images/imagepix.webp",
         width: 1024,
         height: 1024,
-        alt: "EZCalc - Free Online Calculators",
+        alt: "ImagePix - Fast Tools for Images, PDFs & Audio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "EZCalc - Free Online Calculators",
-    description: "Calculate anything with our free online calculators. Fast, accurate, and easy to use.",
+    title: "ImagePix - Fast Tools for Images, PDFs & Audio",
+    description: "Fast, privacy-friendly online tools. Process files directly in your browser.",
   },
   robots: {
     index: true,
@@ -99,17 +99,17 @@ export default function RootLayout({
               {
                 "@context": "https://schema.org",
                 "@type": "WebSite",
-                "name": "EZCalc",
-                "alternateName": ["EZ Calculator", "EZCalc XYZ"],
-                "url": "https://ezcalc.xyz",
-                "description": "Free online calculators for age, BMI, gold prices, land area, loans, mortgages, percentages, tips, and more"
+                "name": "ImagePix",
+                "alternateName": ["Image Pix", "ImagePix Tools"],
+                "url": "https://imagepix.xyz",
+                "description": "Fast, privacy-friendly online tools for images, PDFs, and audio"
               },
               {
                 "@context": "https://schema.org",
                 "@type": "WebApplication",
-                "name": "EZCalc - Free Online Calculators",
-                "description": "Free online calculators for age, BMI, gold prices, land area, loans, mortgages, percentages, tips, and more",
-                "url": "https://ezcalc.xyz",
+                "name": "ImagePix - Fast Tools for Images, PDFs & Audio",
+                "description": "Fast, privacy-friendly online tools for images, PDFs, and audio. Process files directly in your browser.",
+                "url": "https://imagepix.xyz",
                 "applicationCategory": "UtilityApplication",
                 "offers": {
                   "@type": "Offer",
@@ -117,13 +117,13 @@ export default function RootLayout({
                   "priceCurrency": "USD"
                 },
                 "featureList": [
-                  "Age calculator with life insights",
-                  "BMI calculator",
-                  "Gold price calculator",
-                  "Land area calculator",
-                  "Loan and mortgage calculators",
-                  "Percentage calculator",
-                  "Tip calculator",
+                  "Resize images",
+                  "Crop images",
+                  "Convert image formats",
+                  "Compress images",
+                  "Square images for app icons",
+                  "Remove white padding",
+                  "Privacy-friendly processing",
                   "Free and easy to use"
                 ]
               }

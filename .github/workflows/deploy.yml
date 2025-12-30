@@ -1,9 +1,10 @@
-name: Deploy ezcalc.xyz to VPS
+name: Deploy ImagePix to VPS
 
 on:
   push:
     branches:
-      - main
+      # - main
+      - dev
 
 jobs:
   deploy:
