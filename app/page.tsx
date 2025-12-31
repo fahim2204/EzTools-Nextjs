@@ -34,7 +34,7 @@ const tools: ToolCard[] = [
     href: "/tools/resize-image",
     color: "blue",
     gradient: "from-blue-600 to-cyan-600",
-    status: "coming-soon",
+    status: "available",
     tags: ["image", "resize", "dimensions", "scale"],
   },
   {

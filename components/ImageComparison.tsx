@@ -64,7 +64,7 @@ export default function ImageComparison({
         <ReactCompareSlider
           itemOne={<ReactCompareSliderImage src={originalUrl} alt="Original Image" />}
           itemTwo={<ReactCompareSliderImage src={processedUrl} alt="Compressed Image" />}
-          style={{ height: '500px', objectFit: 'contain', backgroundColor: '#111827' }} 
+          style={{ width: '100%', height: 'auto', backgroundColor: '#111827' }} 
         />
         
         {/* Floating Labels */}
